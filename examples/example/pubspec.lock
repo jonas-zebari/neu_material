@@ -98,7 +98,7 @@ packages:
   neu_material:
     dependency: "direct main"
     description:
-      path: "C:/Users/Jonas/Documents/GitHub/neu_material"
+      path: "C:\\Users\\Jonas Zebari\\Documents\\GitHub\\neu_material"
       relative: false
     source: path
     version: "0.0.1"

@@ -1,8 +1,7 @@
 name: neu_material
 description: A Flutter package to provide Neumorphic UI components.
 version: 0.0.1
-author:
-homepage:
+author: Jonas Zebari
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

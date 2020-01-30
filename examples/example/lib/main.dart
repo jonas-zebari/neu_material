@@ -1,31 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:neu_material/neu_material.dart';
 
-const lavender = Color(0xFFDCDCDC);
+const lavender = Color(0xFFC5B5FF);
+const grey = Color(0xFFDCDCDC);
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const space = EdgeInsets.symmetric(horizontal: 16, vertical: 8);
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        accentColor: Colors.black,
+        primaryColor: grey,
+        scaffoldBackgroundColor: grey,
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 1,
+            ),
+          ),
+        ),
+      ),
       home: Scaffold(
-        backgroundColor: lavender,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              for (final type in NeuMaterialType.values)
-                Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: NeuMaterial(
-                    type: type,
-                    shape: BoxShape.circle,
-                    child: SizedBox(height: 150, width: 150),
+              NeuMaterial(
+                margin: space,
+                padding: space,
+                borderRadius: BorderRadius.circular(12),
+                child: Text('Button!'),
+              ),
+              NeuMaterial(
+                margin: EdgeInsets.all(12),
+                padding: space,
+                shape: BoxShape.circle,
+                child: Icon(Icons.refresh),
+              ),
+              NeuMaterial(
+                margin: EdgeInsets.all(8),
+                padding: EdgeInsets.symmetric(horizontal: 48, vertical: 8),
+                borderRadius: BorderRadius.circular(12),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Text field!!1!',
                   ),
                 ),
+              ),
             ],
           ),
         ),
