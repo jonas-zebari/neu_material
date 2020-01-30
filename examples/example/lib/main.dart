@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
                 child: Icon(Icons.refresh),
               ),
               NeuMaterial(
-                margin: EdgeInsets.all(8),
+                margin: EdgeInsets.all(16),
                 padding: EdgeInsets.symmetric(horizontal: 48, vertical: 8),
                 borderRadius: BorderRadius.circular(12),
                 child: TextField(
