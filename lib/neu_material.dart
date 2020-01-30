@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-enum NeuMaterialType {
+enum SurfaceCurve {
   concave,
   convex,
   flat,
@@ -13,7 +13,7 @@ enum NeuMaterialType {
 class NeuMaterial extends StatelessWidget {
   const NeuMaterial({
     Key key,
-    this.type = NeuMaterialType.flat,
+    this.type = SurfaceCurve.flat,
     this.elevation = 8.0,
     this.offset = const Offset(3, 3),
     this.color,
@@ -31,7 +31,7 @@ class NeuMaterial extends StatelessWidget {
         assert(shape != null),
         super(key: key);
 
-  final NeuMaterialType type;
+  final SurfaceCurve type;
   final double elevation;
   final Offset offset;
   final Color color;
@@ -59,7 +59,7 @@ class NeuMaterial extends StatelessWidget {
 
     Gradient gradient;
     switch (type) {
-      case NeuMaterialType.concave:
+      case SurfaceCurve.concave:
         gradient = RadialGradient(
           radius: 1.0,
           colors: <Color>[
@@ -68,7 +68,7 @@ class NeuMaterial extends StatelessWidget {
           ],
         );
         break;
-      case NeuMaterialType.convex:
+      case SurfaceCurve.convex:
         gradient = LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
