@@ -25,6 +25,7 @@ class NeuMaterial extends StatelessWidget {
     this.clipBehavior = Clip.none,
     this.margin = EdgeInsets.zero,
     this.padding = EdgeInsets.zero,
+    this.borderSide,
     this.child,
   })  : shadowFactor = shadowFactor ?? colorFactor,
         assert(shape != null),
@@ -42,6 +43,7 @@ class NeuMaterial extends StatelessWidget {
   final Clip clipBehavior;
   final EdgeInsets margin;
   final EdgeInsets padding;
+  final BorderSide borderSide;
   final Widget child;
 
   @override
@@ -87,6 +89,7 @@ class NeuMaterial extends StatelessWidget {
           borderRadius: borderRadius,
           shape: shape,
           gradient: gradient,
+          border: Border.fromBorderSide(borderSide ?? BorderSide.none),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: shadowLight,

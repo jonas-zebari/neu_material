@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
                 margin: EdgeInsets.all(16),
                 padding: EdgeInsets.symmetric(horizontal: 48, vertical: 8),
                 borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey),
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Text field!!1!',
