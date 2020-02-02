@@ -13,37 +13,39 @@ enum SurfaceCurve {
 class NeuMaterial extends StatelessWidget {
   const NeuMaterial({
     Key key,
-    this.type = SurfaceCurve.flat,
-    this.elevation = 8.0,
-    this.offset = const Offset(3, 3),
+    this.surfaceCurve = SurfaceCurve.flat,
+    this.blur = 8.0,
+    this.elevation = const Offset(3, 3),
     this.color,
     this.colorFactor = 1.05,
-    double shadowFactor = 1.1,
-    this.invertShadow = false,
+    this.shadowFactor = 1.1,
+    this.spread = 0.0,
     this.borderRadius,
     this.shape = BoxShape.rectangle,
     this.clipBehavior = Clip.none,
     this.margin = EdgeInsets.zero,
     this.padding = EdgeInsets.zero,
     this.borderSide,
+    @required this.duration,
     this.child,
-  })  : shadowFactor = shadowFactor ?? colorFactor,
-        assert(shape != null),
+  })  : assert(shape != null),
+        assert(duration != null),
         super(key: key);
 
-  final SurfaceCurve type;
-  final double elevation;
-  final Offset offset;
+  final SurfaceCurve surfaceCurve;
+  final double blur;
+  final double spread;
+  final Offset elevation;
   final Color color;
   final double colorFactor;
   final double shadowFactor;
-  final bool invertShadow;
   final BorderRadius borderRadius;
   final BoxShape shape;
   final Clip clipBehavior;
   final EdgeInsets margin;
   final EdgeInsets padding;
   final BorderSide borderSide;
+  final Duration duration;
   final Widget child;
 
   @override
@@ -58,32 +60,20 @@ class NeuMaterial extends StatelessWidget {
         colorFactor == shadowFactor ? materialDark : color.darken(shadowFactor);
 
     Gradient gradient;
-    switch (type) {
-      case SurfaceCurve.concave:
-        gradient = RadialGradient(
-          radius: 1.0,
-          colors: <Color>[
-            materialLight,
-            materialDark,
-          ],
-        );
-        break;
-      case SurfaceCurve.convex:
-        gradient = LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: <Color>[
-            materialDark,
-            materialLight,
-          ],
-        );
-        break;
-      default:
+    if (surfaceCurve != SurfaceCurve.flat) {
+      gradient = LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: surfaceCurve == SurfaceCurve.concave
+            ? [materialLight, materialDark]
+            : [materialDark, materialLight],
+      );
     }
 
     return Padding(
       padding: padding,
-      child: DecoratedBox(
+      child: AnimatedContainer(
+        duration: duration,
         decoration: BoxDecoration(
           color: color,
           borderRadius: borderRadius,
@@ -93,19 +83,18 @@ class NeuMaterial extends StatelessWidget {
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: shadowLight,
-              offset: -offset,
-              blurRadius: elevation,
+              offset: -elevation,
+              blurRadius: blur,
+              spreadRadius: spread,
             ),
             BoxShadow(
               color: shadowDark,
-              offset: offset,
-              blurRadius: elevation,
+              offset: elevation,
+              blurRadius: blur,
+              spreadRadius: spread,
             ),
           ],
         ),
-        position: invertShadow
-            ? DecorationPosition.foreground
-            : DecorationPosition.background,
         child: Padding(
           padding: margin,
           child: child,
